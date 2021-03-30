@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 
 export default class Timer extends Component {
   render() {
+    console.log(this.props);
     return (
       <div className="ui centered card">
         <div className="cntent">
           <div className="header">{this.props.title}</div>
           <div className="meta">{this.props.project}</div>
           <div className="center aligned description">
-            <h2>DESCRIPTION</h2>
+            <h2>{this.props.project}</h2>
           </div>
           <div className="extra content">
             <span className="right floated edit icon">
