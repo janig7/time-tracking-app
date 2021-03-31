@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import EditableTimerList from './EditableTimerList';
 import ToggleableTimerForm from './ToggleableTimerForm';
+import Helpers from './helpers';
 
 export default class TimerDashboard extends Component {
+  handleCreateFormSubmit = timer => {
+    this.createTimer(timer);
+  };
+
+  createTimer = timer => {
+    const t = Helpers.newTimer(timer);
+    this.setState({
+      timers: this.state.timers.concat(t),
+    });
+  };
   state = {
     timers: [
       {
