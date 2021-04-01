@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Helpers from './helpers';
+import Helpers from '../helpers';
 
+const helper = new Helpers();
 export default class Timer extends Component {
   render() {
-    const elapsedString = Helpers.renderElapsedString(this.props.elapsed);
+    const elapsedString = helper.renderElapsedString(this.props.elapsed);
     console.log(this.props);
     return (
       <div className="ui centered card">
@@ -11,10 +12,13 @@ export default class Timer extends Component {
           <div className="header">{this.props.title}</div>
           <div className="meta">{this.props.project}</div>
           <div className="center aligned description">
-            <h2>{this.props.project}</h2>
+            <h2>{elapsedString}</h2>
           </div>
           <div className="extra content">
-            <span className="right floated edit icon">
+            <span
+              className="right floated edit icon"
+              onClick={this.props.onEditClick}
+            >
               <i className="edit icon"></i>
             </span>
             <span className="right floated trash icon">

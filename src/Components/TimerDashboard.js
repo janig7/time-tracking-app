@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import EditableTimerList from './EditableTimerList';
 import ToggleableTimerForm from './ToggleableTimerForm';
-import Helpers from './helpers';
+import Helpers from '../helpers';
+
+const helpers = new Helpers();
 
 export default class TimerDashboard extends Component {
   handleCreateFormSubmit = timer => {
@@ -9,7 +11,7 @@ export default class TimerDashboard extends Component {
   };
 
   createTimer = timer => {
-    const t = Helpers.newTimer(timer);
+    const t = helpers.newTimer(timer);
     this.setState({
       timers: this.state.timers.concat(t),
     });
@@ -37,7 +39,10 @@ export default class TimerDashboard extends Component {
       <div className="ui three column centered grid">
         <div className="column">
           <EditableTimerList timers={this.state.timers} />
-          <ToggleableTimerForm isOpen={true} />
+          <ToggleableTimerForm
+            isOpen={true}
+            onFormSubmit={this.handleCreateFormSubmit}
+          />
         </div>
       </div>
     );
