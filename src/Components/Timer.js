@@ -3,11 +3,20 @@ import Helpers from '../helpers';
 
 const helper = new Helpers();
 export default class Timer extends Component {
+  componentDidMount() {
+    this.forceUpdateInterval = setInterval(() => this.forceUpdate(), 50);
+  }
+  componentWillUnmount() {
+    clearInterval(this.forceUpdateInterval);
+  }
   handleTrashClick = () => {
     this.props.onTrashClick(this.props.id);
   };
   render() {
-    const elapsedString = helper.renderElapsedString(this.props.elapsed);
+    const elapsedString = helper.renderElapsedString(
+      this.props.elapsed,
+      this.props.runningSince
+    );
     return (
       <div className="ui centered card">
         <div className="cntent">
