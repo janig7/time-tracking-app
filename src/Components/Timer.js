@@ -3,9 +3,11 @@ import Helpers from '../helpers';
 
 const helper = new Helpers();
 export default class Timer extends Component {
+  handleTrashClick = () => {
+    this.props.onTrashClick(this.props.id);
+  };
   render() {
     const elapsedString = helper.renderElapsedString(this.props.elapsed);
-    console.log(this.props);
     return (
       <div className="ui centered card">
         <div className="cntent">
@@ -22,7 +24,7 @@ export default class Timer extends Component {
               <i className="edit icon"></i>
             </span>
             <span className="right floated trash icon">
-              <i className="trash icon"></i>
+              <i className="trash icon" onClick={this.handleTrashClick}></i>
             </span>
           </div>
         </div>

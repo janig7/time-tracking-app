@@ -6,16 +6,6 @@ import Helpers from '../helpers';
 const helpers = new Helpers();
 
 export default class TimerDashboard extends Component {
-  handleCreateFormSubmit = timer => {
-    this.createTimer(timer);
-  };
-
-  createTimer = timer => {
-    const t = helpers.newTimer(timer);
-    this.setState({
-      timers: this.state.timers.concat(t),
-    });
-  };
   state = {
     timers: [
       {
@@ -34,11 +24,51 @@ export default class TimerDashboard extends Component {
       },
     ],
   };
+
+  handleEditFormSubmit = attrs => {
+    this.updateTimer(attrs);
+  };
+  handleCreateFormSubmit = timer => {
+    this.createTimer(timer);
+  };
+  handleTrashClick = timerId => {
+    this.deleteTimer(timerId);
+  };
+  deleteTimer = timerId => {
+    this.setState({
+      timers: this.state.timers.filter(t => t.id !== timerId),
+    });
+  };
+  createTimer = timer => {
+    const t = helpers.newTimer(timer);
+    this.setState({
+      timers: this.state.timers.concat(t),
+    });
+  };
+  updateTimer = attrs => {
+    this.setState({
+      timers: this.state.timers.map(timer => {
+        if (timer.id === attrs.id) {
+          return Object.assign({}, timer, {
+            title: attrs.title,
+            project: attrs.project,
+          });
+        } else {
+          return timer;
+        }
+      }),
+    });
+  };
+
   render() {
     return (
       <div className="ui three column centered grid">
         <div className="column">
-          <EditableTimerList timers={this.state.timers} />
+          <EditableTimerList
+            timers={this.state.timers}
+            onFormSubmit={this.handleEditFormSubmit}
+            onTrashClick={this.handleTrashClick}
+          />
           <ToggleableTimerForm
             isOpen={true}
             onFormSubmit={this.handleCreateFormSubmit}
