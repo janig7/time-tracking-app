@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Helpers from '../helpers';
+import TimerActionButton from './TimerActionButton';
 
 const helper = new Helpers();
 export default class Timer extends Component {
@@ -11,6 +12,12 @@ export default class Timer extends Component {
   }
   handleTrashClick = () => {
     this.props.onTrashClick(this.props.id);
+  };
+  handleStartClick = () => {
+    this.props.onStartClick(this.props.id);
+  };
+  handleStopClick = () => {
+    this.props.onStopClick(this.props.id);
   };
   render() {
     const elapsedString = helper.renderElapsedString(
@@ -37,7 +44,11 @@ export default class Timer extends Component {
             </span>
           </div>
         </div>
-        <div className="ui bottom attached blue basic button">Start</div>
+        <TimerActionButton
+          timerIsRunning={!!this.props.runningSince}
+          onStartClick={this.handleStartClick}
+          onStopClick={this.handleStopClick}
+        />
       </div>
     );
   }
